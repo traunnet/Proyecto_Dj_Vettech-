@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:metadata>
+    <f:viewAction action="#{loginBean.verif_sesion('CLIENTE')}" />
+</f:metadata>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Dashboard Cliente</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"/>
+
+    <style>
+        body {
+            min-height: 100vh;
+            display: flex;
+            overflow-x: hidden;
+        }
+        #sidebar {
+            min-width: 250px;
+            max-width: 250px;
+            background: #343a40;
+            color: #fff;
+        }
+        #sidebar a {
+            color: #adb5bd;
+            text-decoration: none;
+        }
+        #sidebar a:hover {
+            color: #fff;
+        }
+        .content {
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div id="sidebar" class="d-flex flex-column p-3">
+        <h4 class="text-white mb-4">Cliente</h4>
+
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item mb-2">
+                <a href="#" class="nav-link text-white">
+                    <i class="bi bi-house-door"></i> Inicio
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="#" class="nav-link text-white">
+                    <i class="bi bi-calendar2-check"></i> Mis Citas
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="#" class="nav-link text-white">
+                    <i class="bi bi-file-medical"></i> Historial Médico
+                </a>
+            </li>
+            <li class="nav-item mb-2">
+                <a href="#" class="nav-link text-white">
+                    <i class="bi bi-credit-card"></i> Pagos
+                </a>
+            </li>
+        </ul>
+
+        <hr class="text-white"/>
+
+        <h:form>
+            <h:commandButton value="Cerrar Sesión" action="#{loginBean.cerrar_sesion}"
+                             styleClass="btn btn-danger w-100" />
+        </h:form>
+    </div>
+
+    <!-- CONTENIDO -->
+    <div class="content">
+        
+        <!-- NAVBAR -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm px-4">
+            <span class="navbar-brand mb-0 h4">Dashboard Cliente</span>
+
+            <div class="ms-auto d-flex align-items-center">
+                <h5 class="me-3 mb-0">
+                    <i class="bi bi-person-circle"></i>
+                    #{loginBean.nombreUsuario}
+                </h5>
+            </div>
+        </nav>
+
+        <!-- MAIN CONTENT -->
+        <div class="container py-4">
+
+            <h3 class="mb-4">Resumen General</h3>
+
+            <div class="row">
+
+                <!-- Tarjeta 1 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="bi bi-calendar2-check text-primary"></i>
+                                Próxima Cita
+                            </h5>
+                            <p class="card-text">No tienes citas programadas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 2 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="bi bi-heart-pulse text-danger"></i>
+                                Estado de Mascotas
+                            </h5>
+                            <p class="card-text">0 mascotas registradas.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 3 -->
+                <div class="col-md-4 mb-3">
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="bi bi-credit-card text-success"></i>
+                                Pagos Pendientes
+                            </h5>
+                            <p class="card-text">No tienes pagos pendientes.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

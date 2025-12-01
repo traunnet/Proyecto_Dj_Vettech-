@@ -1,0 +1,50 @@
+/* Fondo GIF */
+.bg-gif {
+    background: url("../img/form.gif") no-repeat center center fixed;
+    background-size: cover;
+}
+
+/* Oscurecer fondo */
+.main-container {
+    min-height: 90vh;
+}
+
+/* CARD del formulario */
+.form-card {
+    width: 420px;
+    background: rgba(0, 0, 0, 0.55);
+    padding: 30px;
+    border-radius: 15px;
+    backdrop-filter: blur(5px);
+}
+
+/* Inputs del form */
+.form-input {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 8px;
+}
+
+/* Navbar */
+.navbar-blur {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+}
+
+/* Footer */
+.footer-blur {
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
+}
+
+/* Password eye */
+.password-container {
+    position: relative;
+}
+
+.toggle-pass {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    cursor: pointer;
+    font-size: 1.2rem;
+}

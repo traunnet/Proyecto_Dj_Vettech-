@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+    <title>Administrar Veterinarios</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
+          rel="stylesheet"/>
+</h:head>
+
+<h:body>
+
+    <div class="container mt-4">
+
+        <h2 class="text-center text-primary mb-3">Administrar Veterinarios</h2>
+
+        <div class="mb-3">
+            <h:form>
+                <h:link value="➕ Nuevo Veterinario"
+                        outcome="nuevo"
+                        styleClass="btn btn-success me-2"/>
+
+                <h:link value="⬅ Volver al menú"
+                        outcome="/admin/index"
+                        styleClass="btn btn-secondary"/>
+            </h:form>
+        </div>
+
+        <h:form>
+
+            <!-- TABLA -->
+            <h:dataTable value="#{veterinarioBean.listaV}" var="vr"
+                         styleClass="table table-striped table-bordered shadow-sm">
+
+                <h:column>
+                    <f:facet name="header">ID</f:facet>
+                    #{vr.id_veterinario}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">N° Licencia</f:facet>
+                    #{vr.numero_licencia}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Especialidad</f:facet>
+                    #{vr.especialidad}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Años Experiencia</f:facet>
+                    #{vr.anios_experiencia}
+                </h:column>
+
+                <h:column>
+                    <f:facet name="header">Opciones</f:facet>
+                    <h:link value="Editar" outcome="editar"
+                            styleClass="text-success fw-bold">
+                        <f:param name="id" value="#{vr.id_veterinario}" />
+                    </h:link>
+
+                    <h:commandLink value="Eliminar"
+                                   styleClass="text-danger fw-bold ms-3"
+                                   onclick="return confirm('¿Seguro de eliminar al veterinario?');"
+                                   action="#{veterinarioBean.eliminar(vr.id_veterinario)}"/>
+                </h:column>
+
+            </h:dataTable>
+
+        </h:form>
+    </div>
+
+</h:body>
+</html>

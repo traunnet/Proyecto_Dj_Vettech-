@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<f:view>
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{veterinarioBean.idSeleccionado}" />
+        <f:event type="preRenderView" listener="#{veterinarioBean.cargarVeterinario}" />
+    </f:metadata>
+
+    <h:head>
+        <title>Editar Veterinario</title>
+        <link rel="stylesheet" 
+              href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"/>
+    </h:head>
+
+    <h:body>
+
+    <h:form>
+
+        <div class="container mt-4">
+            <h2>Editar Veterinario</h2>
+
+            <h:messages globalOnly="true" />
+
+            <div class="mb-3">
+                <label>Número de Licencia:</label>
+                <h:inputText value="#{veterinarioBean.veterinario.numero_licencia}"
+                             styleClass="form-control"/>
+            </div>
+
+            <div class="mb-3">
+                <label>Especialidad:</label>
+                <h:inputText value="#{veterinarioBean.veterinario.especialidad}"
+                             styleClass="form-control"/>
+            </div>
+
+            <div class="mb-3">
+                <label>Años de Experiencia:</label>
+                <h:inputText value="#{veterinarioBean.veterinario.anios_experiencia}"
+                             styleClass="form-control"/>
+            </div>
+
+            <div class="mb-3">
+                <label>Usuario Asociado (no editable):</label>
+
+                <div class="form-control bg-light">
+                    #{veterinarioBean.veterinario.nombreUsuario}
+                    #{veterinarioBean.veterinario.apellidoUsuario}
+                </div>
+            </div>
+
+
+            <h:commandButton value="Actualizar" action="#{veterinarioBean.actualizar}"
+                             styleClass="btn btn-primary"/>
+
+            <h:link value="Volver" outcome="index.xhtml" styleClass="btn btn-secondary ms-2"/>
+        </div>
+
+    </h:form>
+
+    </h:body>
+    
+</f:view>
+</html>

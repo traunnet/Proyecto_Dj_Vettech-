@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+<h:head>
+    <title>Luppy &amp; Sus Mascotas</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet"/>
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="resources/css/styles.css"/>
+
+</h:head>
+
+<h:body>
+    <nav class="navbar navbar-expand-lg navbar-dark nav-custom fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold text-white">Luppy &amp; Sus Mascotas</a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menu">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="menu">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link active" href="#">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faces/login.xhtml">Iniciar secion</a></li>
+                    <li class="nav-item"><a class="nav-link" href="faces/registro.xhtml">Registrarse</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <video id="videoFondo" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="resources/video/fondo.mp4" type="video/mp4"/>
+    </video>
+
+    <div class="overlay">
+        <div class="contenido-central text-center" data-aos="fade-up">
+
+            <div class="logo-container mx-auto">
+                <img src="resources/img/logo_luppy.png" alt="logo" class="img-fluid logo"/>
+            </div>
+
+            <h2 class="mt-4 frase">Tu lugar de confianza para el cuidado de tus mascotas.</h2>
+
+        </div>
+    </div>
+    <section class="cards-seccion py-5">
+        <div class="container">
+
+            <h2 class="text-center mb-5 fw-bold titulo-seccion" data-aos="fade-up">
+                Servicios Destacados
+            </h2>
+
+            <div class="row g-4">
+
+                <!-- CARD 1 -->
+                <div class="col-md-4" data-aos="zoom-in">
+                    <div class="card card-custom shadow-lg h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-heart-pulse fs-1 icon-custom"></i>
+                            <h4 class="mt-3 fw-bold">Cuidado Veterinario</h4>
+                            <p class="text-muted mt-2">
+                                Un equipo profesional listo para atender a tus mascotas en cualquier momento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 2 -->
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="card card-custom shadow-lg h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-calendar-check fs-1 icon-custom"></i>
+                            <h4 class="mt-3 fw-bold">Citas Rápidas</h4>
+                            <p class="text-muted mt-2">
+                                Programa consultas fácilmente desde nuestra plataforma en minutos.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CARD 3 -->
+                <div class="col-md-4" data-aos="zoom-in" data-aos-delay="200">
+                    <div class="card card-custom shadow-lg h-100">
+                        <div class="card-body text-center">
+                            <i class="bi bi-clipboard-heart-fill fs-1 icon-custom"></i>
+                            <h4 class="mt-3 fw-bold">Historial de mascotas</h4>
+                            <p class="text-muted mt-2">
+                                Encuentra el historial de cada una de tus masotas y revisa como se encuentran
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <footer class="footer-custom text-white mt-5 p-4">
+        <div class="container">
+            <div class="row text-center text-md-start">
+
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Luppy &amp; Sus Mascotas</h5>
+                    <p>Plataforma para la gestión veterinaria. Cuidamos a tus peluditos.</p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Contacto</h5>
+                    <p><i class="bi bi-telephone-fill"></i> +57 312 456 7890</p>
+                    <p><i class="bi bi-envelope-fill"></i> contacto@luppy.com</p>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <h5 class="fw-bold">Redes Sociales</h5>
+                    <i class="bi bi-facebook fs-3 me-2"></i>
+                    <i class="bi bi-instagram fs-3 me-2"></i>
+                    <i class="bi bi-whatsapp fs-3"></i>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+
+    <script>
+        AOS.init();
+    </script>
+
+</h:body>
+</html>
