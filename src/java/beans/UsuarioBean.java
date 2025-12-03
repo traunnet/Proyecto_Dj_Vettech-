@@ -6,18 +6,22 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
 import javax.imageio.ImageIO;
 import javax.servlet.http.Part;
 import modelo.Rol;
 import modelo.Usuario;
 
 @ManagedBean
-@ApplicationScoped
-public class UsuarioBean {
+@ViewScoped
+public class UsuarioBean implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private Usuario usuario = new Usuario();
     private List<Usuario> listaU = new ArrayList<>();
@@ -28,34 +32,20 @@ public class UsuarioBean {
 
     private Part archivoFoto;
 
-    public Usuario getUsuario() {
-        return usuario;
-    }
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
-    }
+    
+    public Usuario getUsuario() { return usuario; }
+    public void setUsuario(Usuario usuario) { this.usuario = usuario; }
 
-    public List<Usuario> getListaU() {
-        return listaU;
-    }
-    public void setListaU(List<Usuario> listaU) {
-        this.listaU = listaU;
-    }
+    public List<Usuario> getListaU() { return listaU; }
+    public void setListaU(List<Usuario> listaU) { this.listaU = listaU; }
 
-    public Part getArchivoFoto() {
-        return archivoFoto;
-    }
-    public void setArchivoFoto(Part archivoFoto) {
-        this.archivoFoto = archivoFoto;
-    }
+    public Part getArchivoFoto() { return archivoFoto; }
+    public void setArchivoFoto(Part archivoFoto) { this.archivoFoto = archivoFoto; }
 
-    public List<Rol> getListaRoles() {
-        return listaRoles;
-    }
-    public void setListaRoles(List<Rol> listaRoles) {
-        this.listaRoles = listaRoles;
-    }
+    public List<Rol> getListaRoles() { return listaRoles; }
+    public void setListaRoles(List<Rol> listaRoles) { this.listaRoles = listaRoles; }
 
+ 
     private byte[] procesarFoto(Part foto) throws Exception {
 
         if (foto == null || foto.getSize() == 0) {
@@ -92,10 +82,17 @@ public class UsuarioBean {
         return os.toByteArray();
     }
 
+    
     public void listar() {
         usuario = new Usuario();
         listaU = uDAO.listarU();
         listaRoles = rDAO.listar();
+    }
+
+    public void cargar() {
+        if (!FacesContext.getCurrentInstance().isPostback()) {
+            listar();
+        }
     }
 
     public void guardar() {
@@ -108,6 +105,7 @@ public class UsuarioBean {
             e.printStackTrace();
         }
 
+        // Encriptar contraseña
         if (usuario.getContrasena() != null && !usuario.getContrasena().trim().isEmpty()) {
             usuario.setContrasena(Utils.encriptar(usuario.getContrasena()));
         }
@@ -145,23 +143,44 @@ public class UsuarioBean {
         uDAO.eliminar(id);
         listar();
     }
-    
+
     public String getPreviewFoto() {
-    try {
-        if (archivoFoto == null || archivoFoto.getSize() == 0) {
-            return null;
-        }
+        try {
+            if (archivoFoto == null || archivoFoto.getSize() == 0) {
+                return null;
+            }
 
-        byte[] bytes = archivoFoto.getInputStream().readAllBytes();
-        String base64 = java.util.Base64.getEncoder().encodeToString(bytes);
+            byte[] bytes = archivoFoto.getInputStream().readAllBytes();
+            String base64 = java.util.Base64.getEncoder().encodeToString(bytes);
 
-        return "data:" + archivoFoto.getContentType() + ";base64," + base64;
+            return "data:" + archivoFoto.getContentType() + ";base64," + base64;
 
         } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
-    }   
+    }
 
+   
+    private String filtroNombre;
+    private String filtroCorreo;
+    private String filtroRol;
+    private String filtroDireccion;
+
+    public String getFiltroNombre() { return filtroNombre; }
+    public void setFiltroNombre(String filtroNombre) { this.filtroNombre = filtroNombre; }
     
+    public String getFiltroDireccion() { return filtroDireccion; }
+    public void setFiltroDireccion(String filtroDireccion) { this.filtroDireccion = filtroDireccion; }
+
+    public String getFiltroCorreo() { return filtroCorreo; }
+    public void setFiltroCorreo(String filtroCorreo) { this.filtroCorreo = filtroCorreo; }
+
+    public String getFiltroRol() { return filtroRol; }
+    public void setFiltroRol(String filtroRol) { this.filtroRol = filtroRol; }
+
+    public void filtrar() {
+        listaU = uDAO.filtrarUsuarios(filtroNombre, filtroCorreo, filtroRol);
+    }
+
 }

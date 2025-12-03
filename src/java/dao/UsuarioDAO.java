@@ -208,4 +208,60 @@ public class UsuarioDAO {
         }
         return usr;
     }
+    //
+    public List<Usuario> filtrarUsuarios(String nombre, String correo, String rol) {
+    List<Usuario> lista = new ArrayList<>();
+
+    String sql = "SELECT u.id_usuario, u.tipo_doc, u.nombre, u.apellido, u.correo, u.telefono, " +
+                 "u.direccion, u.foto_perfil, u.id_rol, r.nombre_rol " +
+                 "FROM usuario u LEFT JOIN rol r ON u.id_rol = r.id_rol " +
+                 "WHERE 1=1 ";
+
+    if (nombre != null && !nombre.isEmpty()) {
+        sql += " AND (u.nombre LIKE ? OR u.apellido LIKE ?) ";
+    }
+    if (correo != null && !correo.isEmpty()) {
+        sql += " AND u.correo LIKE ? ";
+    }
+    if (rol != null && !rol.isEmpty()) {
+        sql += " AND r.nombre_rol LIKE ? ";
+    }
+
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        int i = 1;
+
+        if (nombre != null && !nombre.isEmpty()) {
+            ps.setString(i++, "%" + nombre + "%");
+            ps.setString(i++, "%" + nombre + "%");
+        }
+        if (correo != null && !correo.isEmpty()) {
+            ps.setString(i++, "%" + correo + "%");
+        }
+        if (rol != null && !rol.isEmpty()) {
+            ps.setString(i++, "%" + rol + "%");
+        }
+
+        try (ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Usuario u = new Usuario();
+                u.setIdUsuario(rs.getInt("id_usuario"));
+                u.setTipoDoc(rs.getString("tipo_doc"));
+                u.setNombre(rs.getString("nombre"));
+                u.setApellido(rs.getString("apellido"));
+                u.setCorreo(rs.getString("correo"));
+                u.setTelefono(rs.getString("telefono"));
+                u.setDireccion(rs.getString("direccion"));
+                u.setFotoPerfil(rs.getBytes("foto_perfil"));
+                u.setIdRol(rs.getInt("id_rol"));
+                u.setRolNombre(rs.getString("nombre_rol"));
+                lista.add(u);
+            }
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+
+    return lista;
+}
+
 }

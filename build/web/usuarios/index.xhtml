@@ -7,20 +7,32 @@
 
 <h:head>
     <title>Administrar Usuarios</title>
+
+    <!-- Tus estilos -->
     <link rel="stylesheet" href="#{resource['css/estilos.css']}" />
+
+    <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet"/>
+
+    <!-- Iconos -->
+    <link rel="stylesheet" 
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
+    
+     <h:outputScript library="js" name="pag.js" />
 </h:head>
 
 <h:body>
 
-    <f:event type="preRenderView" listener="#{usuarioBean.listar}" />
+    <!-- Cargar lista al entrar -->
+    <f:event type="preRenderView" listener="#{usuarioBean.cargar}" />
 
     <h2 class="text-center text-primary">Administrar Usuarios</h2>
 
     <h:form>
         <div class="container">
 
+            <!-- Botones superiores -->
             <h:commandLink value="Nuevo Usuario"
                            class="text-primary"
                            action="nuevo" />
@@ -29,88 +41,149 @@
                            class="text-secondary"
                            action="/faces/admin/index"
                            style="margin-left: 15px;" />
-            
+
+            <h:commandButton 
+                           value="Generar Excel de Usuarios"
+                           action="#{reporteUsuariosBeanExcel.generarExcel}"
+                           styleClass="btn btn-success"
+                           style="margin-left: 10px;" />
+
             <h:commandButton 
                             value="Generar PDF de Usuarios"
                             action="#{reporteUsuariosBean.generarPDF}"
                             styleClass="btn btn-primary" />
+
             <br/><br/>
 
-            <h:dataTable value="#{usuarioBean.listaU}" var="usr"
-                         styleClass="table table-bordered table-striped">
+            <!-- ============================
+                 FILTROS MULTICRITERIO
+            ============================ -->
+            <div class="row mb-4 p-3 bg-light rounded shadow-sm">
+
+                <div class="col-md-4">
+                    <label class="form-label">Nombre o Apellido</label>
+                    <h:inputText value="#{usuarioBean.filtroNombre}" 
+                                 styleClass="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Correo</label>
+                    <h:inputText value="#{usuarioBean.filtroCorreo}" 
+                                 styleClass="form-control" />
+                </div>
+                
+                <div class="col-md-4">
+                    <label class="form-label">Direccion</label>
+                    <h:inputText value="#{usuarioBean.filtroDireccion}" 
+                    styleClass="form-control" />
+                </div>
+
+                <div class="col-md-4">
+                    <label class="form-label">Rol</label>
+                    <h:inputText value="#{usuarioBean.filtroRol}" 
+                                 styleClass="form-control" />
+                </div>
+
+                <div class="col-12 text-end mt-3">
+
+                    <h:commandButton value="Filtrar" 
+                                     action="#{usuarioBean.filtrar}"
+                                     styleClass="btn btn-primary me-2" />
+
+                    <h:commandButton value="Limpiar Filtros"
+                                     action="#{usuarioBean.listar}"
+                                     styleClass="btn btn-secondary" />
+                </div>
+
+            </div>
+
+            <!-- ============================
+                 TABLA DE USUARIOS
+            ============================ -->
+            <h:dataTable value="#{usuarioBean.listaU}" var="usr" styleClass="table table-hover table-bordered align-middle shadow-sm rounded"
+                rowClasses="fila-usuario">
+
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="Foto"/>
+                        <i class="bi bi-image"></i> Foto
                     </f:facet>
-
                     <h:graphicImage value="/ImagenUsuario?id=#{usr.idUsuario}"
-                                    width="60" height="60"
+                                    width="55" height="55"
                                     style="border-radius: 50%; object-fit: cover;"/>
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="ID" />
+                        <i class="bi bi-hash"></i> ID
                     </f:facet>
-                    <h:outputText value="#{usr.idUsuario}" />
+                    #{usr.idUsuario}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="Nombre" />
+                        <i class="bi bi-person"></i> Nombre
                     </f:facet>
-                    <h:outputText value="#{usr.nombre} #{usr.apellido}" />
+                    #{usr.nombre} #{usr.apellido}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="Correo" />
+                        <i class="bi bi-envelope"></i> Correo
                     </f:facet>
-                    <h:outputText value="#{usr.correo}" />
+                    #{usr.correo}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="Teléfono" />
+                        <i class="bi bi-telephone"></i> Teléfono
                     </f:facet>
-                    <h:outputText value="#{usr.telefono}" />
+                    #{usr.telefono}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="Dirección" />
+                        <i class="bi bi-geo-alt"></i> Dirección
                     </f:facet>
-                    <h:outputText value="#{usr.direccion}" />
+                    #{usr.direccion}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="Rol" />
+                        <i class="bi bi-person-badge"></i> Rol
                     </f:facet>
-                    <h:outputText value="#{usr.rolNombre}" />
+                    #{usr.rolNombre}
                 </h:column>
 
                 <h:column>
                     <f:facet name="header">
-                        <h:outputLabel value="Opciones" />
+                        <i class="bi bi-tools"></i> Opciones
                     </f:facet>
 
-                    <div align="center">
-                        <h:commandLink value="Editar"
-                                       class="text-success"
-                                       actionListener="#{usuarioBean.buscar(usr.idUsuario)}"
-                                       action="editar" />
+                    <div class="text-center">
 
-                        <h:commandLink value="Eliminar"
-                                       class="text-danger"
-                                       style="margin-left: 15px;"
-                                       actionListener="#{usuarioBean.eliminar(usr.idUsuario)}"
-                                       onclick="return confirm('¿Está seguro de eliminar al usuario #{usr.nombre}?');" />
+                        <h:commandLink 
+                            actionListener="#{usuarioBean.buscar(usr.idUsuario)}"
+                            action="editar"
+                            styleClass="btn btn-outline-success btn-sm me-2">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </h:commandLink>
+
+                        <h:commandLink 
+                            actionListener="#{usuarioBean.eliminar(usr.idUsuario)}"
+                            onclick="return confirm('¿Eliminar al usuario #{usr.nombre}?');"
+                            styleClass="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash"></i> Eliminar
+                        </h:commandLink>
+
                     </div>
+
                 </h:column>
 
             </h:dataTable>
+            <nav>
+               <ul class="pagination justify-content-center" id="paginacionUsuarios"></ul>
+            </nav>
 
         </div>
     </h:form>
