@@ -11,6 +11,11 @@
     z-index: -2;
 }
 
+.titulo-seccion {
+    font-family: sans-serif;
+    size: 16px;
+}
+
 .overlay {
     position: relative;
     width: 100%;
@@ -46,12 +51,14 @@
 
 .cards-seccion {
     background-color: #b2dfdb;
+    
 }
 
 .card-custom {
     border: none;
     border-radius: 15px;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+   
 }
 
 .card-custom:hover {
