@@ -9,12 +9,13 @@
     <title>Administrar Usuarios</title>
 
     <!-- Tus estilos -->
-    <link rel="stylesheet" href="#{resource['css/estilos.css']}" />
+    <link rel="stylesheet" href="../resources/css/estilos.css"/>
 
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css"
           rel="stylesheet"/>
 
+          
     <!-- Iconos -->
     <link rel="stylesheet" 
           href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"/>
@@ -22,36 +23,69 @@
      <h:outputScript library="js" name="pag.js" />
 </h:head>
 
-<h:body>
+    <h:body >
+        
+    <div class="fondo"></div>
 
     <!-- Cargar lista al entrar -->
     <f:event type="preRenderView" listener="#{usuarioBean.cargar}" />
 
-    <h2 class="text-center text-primary">Administrar Usuarios</h2>
+    
 
     <h:form>
-        <div class="container">
+        <div  class="container ">
 
-            <!-- Botones superiores -->
-            <h:commandLink value="Nuevo Usuario"
-                           class="text-primary"
-                           action="nuevo" />
+                <!-- MENÚ SUPERIOR -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4 p-3 rounded">
+        <div class="container-fluid">
 
-            <h:commandLink value="Menú Anterior"
-                           class="text-secondary"
-                           action="/faces/admin/index"
-                           style="margin-left: 15px;" />
+            <!-- Título -->
+            <span class="navbar-brand fw-bold text-primary fs-4">
+                Administrar Usuarios
+            </span>
 
-            <h:commandButton 
-                           value="Generar Excel de Usuarios"
-                           action="#{reporteUsuariosBeanExcel.generarExcel}"
-                           styleClass="btn btn-success"
-                           style="margin-left: 10px;" />
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#menuSuperior">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-            <h:commandButton 
-                            value="Generar PDF de Usuarios"
+            <div class="collapse navbar-collapse" id="menuSuperior">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+
+                    <!-- Nuevo Usuario -->
+                    <li class="nav-item me-2">
+                        <h:commandLink value="Nuevo Usuario"
+                            class="btn btn-outline-success"
+                            style="text-decoration:none"
+                            action="nuevo"/>
+                    </li>
+
+                    <!-- Menú Anterior -->
+                    <li class="nav-item me-2">
+                        <h:commandLink value="Menú Anterior"
+                            class="btn btn-outline-secondary"
+                            action="/faces/admin/index"
+                            style="text-decoration:none"/>
+                    </li>
+
+                    <!-- Generar Excel -->
+                    <li class="nav-item me-2">
+                        <h:commandButton value="Generar Excel"
+                            action="#{reporteUsuariosBeanExcel.generarExcel}"
+                            styleClass="btn btn-success"/>
+                    </li>
+
+                    <!-- Generar PDF -->
+                    <li class="nav-item">
+                        <h:commandButton value="Generar PDF"
                             action="#{reporteUsuariosBean.generarPDF}"
-                            styleClass="btn btn-primary" />
+                            styleClass="btn btn-primary"/>
+                    </li>
+
+                </ul>
+            </div>
+
+        </div>
+    </nav>
 
             <br/><br/>
 
